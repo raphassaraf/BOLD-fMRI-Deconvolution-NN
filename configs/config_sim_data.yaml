@@ -1,0 +1,37 @@
+# ##### ALICE #####
+simulated_regime:
+  name: "aliceO2"
+  regime:
+    duration: [23, 10] # [mean, scale]
+    amplitude: [0., 0.65] # [mean, scale]
+    snr: [0.5, 3] # [mean, scale]
+    min_onset_interval: 10
+  method: 'random'
+
+n_points: 300
+n_voxels: 300000
+
+##### BOB #####
+# simulated_regime:
+#   name: "bob"
+#   regime:
+#     duration: [23, 10] # [mean, scale]
+#     amplitude: [0., 0.65] # [mean, scale]
+#     snr: [0.5, 3] # [mean, scale]
+#     min_onset_interval: 10
+#   method: 'spm'
+
+# n_voxels: 300000
+
+# ##### CHARLIE #####
+# simulated_regime:
+#   name: "charlie"
+#   regime:
+#     duration: [..., ...] # [mean, scale]
+#     amplitude: [..., ...] # [mean, scale]
+#     snr: [..., ...] # [mean, scale]
+#     min_onset_interval: ...
+#   method: '...'
+
+# n_points: ...
+# n_voxels: ...

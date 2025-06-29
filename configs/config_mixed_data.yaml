@@ -1,0 +1,18 @@
+n_samples:
+  train: 700000
+  validation: 80000
+  test: 80000
+
+real:
+  tasks: [motor, gambling, language]
+  augmentation_ratios: [0.8, 0.8, 0.8]
+
+simulated:
+  name: "aliceO2"
+  regime:
+    duration: [23, 10] # [mean, scale]
+    amplitude: [0., 0.65] # [mean, scale]
+    snr: [0.5, 3] # [mean, scale]
+    min_onset_interval: 10
+  method: 'random'
+  n_voxels: 1001000

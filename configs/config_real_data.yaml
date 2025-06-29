@@ -1,0 +1,2 @@
+tasks: [motor, gambling, language]
+augmentation_ratios: [0.0, 0.0, 0.0]

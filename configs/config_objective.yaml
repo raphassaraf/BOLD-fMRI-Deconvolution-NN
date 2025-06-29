@@ -1,0 +1,75 @@
+training_params:
+  initial_learning_rate: 0.001
+  patience: 12
+  tolerance: 0.0001
+  scheduler_pr: {patience: 5, factor: 0.5}
+
+trial_params_CNN_1l:
+  kernel_size: {name: 'kernel_size', low: 5, high: 90}
+
+trial_params_CNN_2l:
+  kernel_size_1: {name: 'kernel_size_1', low: 5, high: 35}
+  kernel_size_2: {name: 'kernel_size_2', low: 5, high: 35}
+  hidden_size: {name: 'hidden_size', low: 10, high: 50}
+
+trial_params_CNN_3l:
+  kernel_size_1: {name: 'kernel_size_1', low: 15, high: 45}
+  kernel_size_2: {name: 'kernel_size_2', low: 15, high: 45}
+  kernel_size_3: {name: 'kernel_size_3', low: 15, high: 45}
+  hidden_size_1: {name: 'hidden_size_1', low: 10, high: 50}
+  hidden_size_2: {name: 'hidden_size_2', low: 10, high: 50}
+
+trial_params_CNN_4l:
+  kernel_size_1: {name: 'kernel_size_1', low: 21, high: 75}
+  kernel_size_2: {name: 'kernel_size_2', low: 21, high: 75}
+  kernel_size_3: {name: 'kernel_size_3', low: 21, high: 75}
+  kernel_size_4: {name: 'kernel_size_4', low: 21, high: 75}
+  hidden_size_1: {name: 'hidden_size_1', low: 4, high: 10}
+  hidden_size_2: {name: 'hidden_size_2', low: 4, high: 10}
+  hidden_size_3: {name: 'hidden_size_3', low: 4, high: 10}
+
+trial_params_LSTM:
+  num_layers: {name: 'num_layers', low: 1, high: 3}
+  hidden_size: {name: 'hidden_size', low: 1, high: 32}
+
+trial_params_RNNDeconvolutionRNN:
+  num_layers_kernel_rnn: {name: 'num_layers_kernel_rnn', low: 1, high: 3}
+  hidden_size_kernel_rnn: {name: 'hidden_size_kernel_rnn', low: 8, high: 64}
+  num_layers_output_rnn: {name: 'num_layers_output_rnn', low: 1, high: 3}
+  hidden_size_output_rnn: {name: 'hidden_size_output_rnn', low: 8, high: 64}
+  kernel_size: {name: 'kernel_size', low: 5, high: 75}
+
+ae_objective_params:
+  trial_params_AutoEncoder:
+    compression: {name: 'compression', low: 4, high: 8}
+    filter_number: {name: 'filter_number', low: 5, high: 10}
+    kernel_size: {name: 'kernel_size', low: 13, high: 21, step: 2}
+    dropout: {name: 'dropout', low: 0.0, high: 0.2, step: 0.1}
+  # ldm_type: 'CNN_3L'
+  # ldm_params: {kernel_size_1: 21, kernel_size_2: 21, kernel_size_3: 21, hidden_size_1: 5, hidden_size_2: 5}
+  # criterion_ldm_pr: {alpha: 60, lambda_tv: 0.008}
+  ldm_type: 'CNN_4L'
+  ldm_params: {kernel_size_1: 25, kernel_size_2: 25, kernel_size_3: 25, kernel_size_4: 25, hidden_size_1: 10, hidden_size_2: 10, hidden_size_3: 10}
+  criterion_ldm_pr: {alpha: 70, lambda_tv: 0.0001}
+
+#################################
+#### Oversampling correction ####
+#################################
+# trial_params_CNN_4l:
+#   kernel_size_1: {name: 'kernel_size_1', low: 35, high: 35}
+#   kernel_size_2: {name: 'kernel_size_2', low: 75, high: 75}
+#   kernel_size_3: {name: 'kernel_size_3', low: 51, high: 51}
+#   kernel_size_4: {name: 'kernel_size_4', low: 29, high: 29}
+#   hidden_size_1: {name: 'hidden_size_1', low: 8, high: 8}
+#   hidden_size_2: {name: 'hidden_size_2', low: 10, high: 10}
+#   hidden_size_3: {name: 'hidden_size_3', low: 8, high: 8}
+
+# ae_objective_params:
+#   trial_params_AutoEncoder:
+#     compression: {name: 'compression', low: 6, high: 6}
+#     filter_number: {name: 'filter_number', low: 7, high: 7}
+#     kernel_size: {name: 'kernel_size', low: 19, high: 19, step: 1}
+#     dropout: {name: 'dropout', low: 0.1, high: 0.1, step: 0.1}
+#   ldm_type: 'CNN_4L'
+#   ldm_params: {kernel_size_1: 25, kernel_size_2: 25, kernel_size_3: 25, kernel_size_4: 25, hidden_size_1: 10, hidden_size_2: 10, hidden_size_3: 10}
+#   criterion_ldm_pr: {alpha: 70, lambda_tv: 0.0001}

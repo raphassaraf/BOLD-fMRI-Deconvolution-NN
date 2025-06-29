@@ -1,0 +1,89 @@
+# #### W9 - AutoEncoder, Alice 1M #####
+# model_types: ['AutoEncoder']
+# num_trials: [20]
+# num_epochs: 50
+# batch_size: 64
+# real: False
+# regimes: ['alice']
+# data_suf: '1M'
+# blocky: [True]
+# output_file: 'ae_logs_W9.csv'
+
+##### W9 - CNNs #####
+# model_types: ['CNN_2L', 'CNN_3L', 'CNN_4L']
+# num_trials: [25, 100, 100]
+# num_epochs: 50
+# batch_size: 64
+# real: False
+# regimes: ['alice']
+# data_suf: '1M'
+# blocky: [True]
+# output_file: 'cnn_logs_W9.csv'
+
+##### W9 - LSTMs #####
+# model_types: ['LSTMDeconvolutionLSTM']
+# num_trials: [50]
+# num_epochs: 50
+# batch_size: 64
+# real: True
+# regimes: ['MGL']
+# data_suf: '080808'
+# blocky: [True]
+# output_file: 'lstm_logs_W9.csv'
+
+#### W9 - AutoEncoder, real (motor, gambling, language) #####
+# model_types: ['AutoEncoder']
+# num_trials: [20]
+# num_epochs: 50
+# batch_size: 64
+# real: True
+# regimes: ['MGL']
+# data_suf: '080808'
+# blocky: [True]
+# output_file: 'ae_logs_W9.csv'
+
+##### W9 - CNNs, real (motor, gambling, language) #####
+# model_types: ['CNN_4L']
+# num_trials: [100]
+# num_epochs: 50
+# batch_size: 64
+# real: True
+# regimes: ['MGL']
+# data_suf: '080808'
+# blocky: [True]
+# output_file: 'cnn_logs_W9.csv'
+
+##### W6 - CNNs, correction on simulated data for CNN_4L (zero) #####
+# model_types: ['CNN_4L']
+# num_trials: [150]
+# num_epochs: 50
+# batch_size: 64
+# real: False
+# regimes: ['zero']
+# data_suf: '100m'
+# blocky: [True, False]
+# output_file: 'cnn_logs_W6.csv'
+
+
+#### Oversampling correction ####
+model_types: ['CNN_4L']
+num_trials: [100]
+num_epochs: 50
+batch_size: 64
+real: False
+regimes: ['aliceO2']
+data_suf: '1M'
+blocky: [True]
+output_file: 'cnn_logs_W9.csv'
+
+# model_types: ['AutoEncoder']
+# num_trials: [20]
+# num_epochs: 50
+# batch_size: 64
+# real: False
+# regimes: ['aliceO2']
+# data_suf: '1M'
+# blocky: [True]
+# output_file: 'ae_logs_W9.csv'
+
+
