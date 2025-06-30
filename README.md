@@ -33,6 +33,3 @@ The work was done in the scope of a semester project at the Medical Image Proces
 * `hp_search.py` - Hyperparameter search script.
 * `mixed_data_training.py` - Script for training models on mixed datasets with varying proportions of real data.
 * `requirements.txt`
-
-
-TODO: ADD requirements.txt
