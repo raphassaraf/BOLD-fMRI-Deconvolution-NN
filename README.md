@@ -10,15 +10,15 @@ The work was done in the scope of a semester project at the Medical Image Proces
 
 ## Project Structure
 * `/configs/*` - Contains config files for the .py scripts.
-* `/data_generation/*` - Contains scripts used to generate real and simulated datasets
+* `/data_generation/` - Contains scripts used to generate real and simulated datasets
     - `mixed_data_generation.py` - Generate mixed (real + simulated) datasets of various proportions of real data.
     - `real_data_generation.py` - Generate real dataset.
     - `simulated_data_generation.py` - Generate simulated dataset.
-* `/notebooks/*` - Contains notebooks used for analyis.
+* `/notebooks/` - Contains notebooks used for analyis.
     - `hp_search_results_analysis.ipynb`
     - `midterm_pres_plots.ipynb`
     - `report_plots.ipynb`
-* `/tools/*`
+* `/tools/`
     - `./models/*` - Contains all neural network model classes.
     - `analysis.py` - Contains all functions used for plots and results analysis.
     - `custom_loss.py` - Loss functions.
@@ -30,9 +30,9 @@ The work was done in the scope of a semester project at the Medical Image Proces
     - `utils.py` - Utility functions.
 * `cnn_small.py` - Train & finetune CNN-small model.
 * `ft_ae.py` - Finetune AE model using different strategies.
-* `hp_search.py` - 
-* `mixed_data_training.py` -  
-* `requirements.txt` - 
+* `hp_search.py` - Hyperparameter search script.
+* `mixed_data_training.py` - Script for training models on mixed datasets with varying proportions of real data.
+* `requirements.txt`
 
 
 TODO: ADD requirements.txt
