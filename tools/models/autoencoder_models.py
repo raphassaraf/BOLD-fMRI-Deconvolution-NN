@@ -8,7 +8,11 @@ class LatentDeconvolution(BaseModel):
     def __init__(self, signal_length, compression, model):
         super(LatentDeconvolution, self).__init__()
         '''
-        Model: can be CNN, LSTM, ... idea is to pick one of the winning models of the previous HP searches
+        The latent deconvolution model that takes as input a model and wraps it as to fit within the full AE architecture.
+
+        signal_length: int, length of the fMRI signal (our AutoEncoder models require a fixed length for all tasks).
+        compression: int, the factor reducing the signal length in for its latent representation.
+        model: BaseModel, the latent deconvolution model that will take the latent representation as input (usually a CNN).
         '''
         
         self.fc = nn.Linear(signal_length//compression, signal_length)
@@ -30,8 +34,13 @@ class LatentDeconvolution(BaseModel):
 class Encoder(nn.Module):
     def __init__(self, signal_length, compression, filter_number, kernel_size, dropout=0.2):
         '''
-        Compression determines by what factor is the signal compressed. Starting with 8, might have to use lower value....
+        signal_length: int, length of the fMRI signal (our AutoEncoder models require a fixed length for all tasks).
+        compression: int, the factor reducing the signal length in for its latent representation.
+        filter_number: int, the number of filters in the conv1 layer.
+        kernel_size: int, the kernel size in the conv1 layer.
+        dropout: float, the dropout to add after the fully connected layer.
         '''
+
         super(Encoder, self).__init__()
 
         self.n_pooling = 1
@@ -57,6 +66,13 @@ class Encoder(nn.Module):
 class Decoder(nn.Module):
     def __init__(self, signal_length, compression, filter_number, kernel_size, dropout=0.2):
         super(Decoder, self).__init__()
+        '''
+        signal_length: int, length of the fMRI signal (our AutoEncoder models require a fixed length for all tasks).
+        compression: int, the factor reducing the signal length in for its latent representation.
+        filter_number: int, the number of filters in the conv1 layer.
+        kernel_size: int, the kernel size in the conv1 layer.
+        dropout: float, the dropout to add after the fully connected layer.
+        '''
 
         self.filter_number = filter_number
         self.n_pool = 1
@@ -80,6 +96,17 @@ class Decoder(nn.Module):
     
 class AutoEncoder(nn.Module):
     def __init__(self, signal_length, compression, filter_number=4, kernel_size=5, dropout=0.2):
+        '''
+        AutoEncoder model that comprises the Encoder and Decoder blocks. The two blocks are restricted to have the
+        same parameters.
+
+        signal_length: int, length of the fMRI signal (our AutoEncoder models require a fixed length for all tasks).
+        compression: int, the factor reducing the signal length in for its latent representation.
+        filter_number: int, the number of filters in the conv1 layers of both Encoder and Decoder blocks.
+        kernel_size: int, the kernel size in the conv1 layers of both Encoder and Decoder blocks.
+        dropout: float, the dropout to add after the fully connected layers of both Encoder and Decoder blocks.
+        '''
+
         super(AutoEncoder, self).__init__()
 
         self.signal_length = signal_length
@@ -104,6 +131,12 @@ class AutoEncoder(nn.Module):
     
 class AutoEncoderDeconvolution(nn.Module):
     def __init__(self, autoencoder, latent_deconv_model):
+        '''
+        The full AE architecture comprising the autoencoder (Encoder + Decoder) and the latent deconvolution model.
+
+        autoencoder: AutoEncoder, the Encoder + Decoder blocks wrapped in the AutoEncoder object.
+        latent_deconv_model: LatentDeconvolution, the latent deconvolution model wrapped for the complete AE architecture.
+        '''
         super(AutoEncoderDeconvolution, self).__init__()
 
         self.signal_length = autoencoder.signal_length

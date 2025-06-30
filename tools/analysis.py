@@ -165,6 +165,7 @@ def get_best_models_dict(logs, idx=None, top_k=1):
         
     return best_models_dict
 
+
 def plot_losses_per_model(best_models_dict):
     
     n_models = len(best_models_dict.keys())
@@ -325,6 +326,7 @@ def analyse_hp_search(results_df, dataset, idx=None, top_k=1):
     df_test_mse = compute_test_metric(best_models_dict, dataset)
 
     return loss_plot, inference_plot, df_test_mse
+
 
 def get_study_path(study_name):
     optuna_folder = 'optuna_logs'

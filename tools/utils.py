@@ -22,6 +22,10 @@ MODEL_DICT = {
 
 
 class FMRIDataset(Dataset):
+    '''
+    PyTorch Dataset wrapper for the fMRI data.
+    '''
+
     def __init__(self, X, y, convolved=None, final_length=None):
         self.X = X
         self.y = y
@@ -58,6 +62,11 @@ class FMRIDataset(Dataset):
         
 class PaddedDatasetWrapper(Dataset):
     def __init__(self, dataset, final_length):
+        '''
+        PyTorch Dataset wrapper for fMRI data with padding.
+
+        final_length: the final length to to pad the signals to.
+        '''
         self.dataset = dataset
         self.final_length = final_length
         self.initial_length = len(dataset[0][0])
@@ -96,7 +105,7 @@ def model_save(model, path):
 
 def get_latent_dataloader(dataloader, autoencoder, device):
     '''
-    Convert DataLoader from (X, y) to (latent, y). Used for autoencoder training
+    Convert DataLoader from (X, y) to (latent, y). Used for autoencoder training.
     '''
 
     latent_data, y_data = [], []

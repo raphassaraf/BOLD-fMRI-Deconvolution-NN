@@ -145,6 +145,11 @@ def concat_task_datasets(task_datasets):
 
 ### DATA AUGMENTATION FUNCTIONS ###
 def shift(X, y, shift_range=(-20, 20), ratio=0.3):
+    '''
+    Temporal shift.
+
+    shift_range: tuple of int, (min, max) temporal shift to be applied.
+    '''
 
     dataset_size, signal_length, _ = X.shape
     n_shifted_samples = int(dataset_size * ratio)
@@ -169,6 +174,11 @@ def shift(X, y, shift_range=(-20, 20), ratio=0.3):
 
 
 def scale_amplitude(X, y, amplitude_range=(0.75, 1.25), ratio=0.3):
+    '''
+    Amplitude scaling.
+
+    amplitude_range: tuple of int, (min, max) amplitude scaling to be applied.
+    '''
 
     dataset_size = X.shape[0]
     n_scaled_samples = int(dataset_size * ratio)
@@ -193,6 +203,11 @@ def scale_amplitude(X, y, amplitude_range=(0.75, 1.25), ratio=0.3):
 
 
 def add_gaussian_noise(X, y, noise_snr_db_range=(-1, 5), ratio=0.3):
+    '''
+    Gaussian noise injection.
+
+    noise_snr_db_range: tuple of int, (min, max) snr to be applied.
+    '''
 
     dataset_size = X.shape[0]
     n_noisy_samples = int(dataset_size * ratio)
@@ -232,6 +247,9 @@ def augment(
     noise_snr_db_range=(-1, 5),
     ratios=(0.3, 0.3, 0.3),
 ):
+    '''
+    Applies each augmentation to a given ratio of the full dataset.
+    '''
 
     augmented_X, augmented_y, shift_idx = shift(X, y, shift_range, ratios[0])
     augmented_X, augmented_y, scaled_idx = scale_amplitude(

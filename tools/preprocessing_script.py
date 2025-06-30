@@ -5,8 +5,8 @@ import xarray as xr
 from tools.preprocessing_functions import get_data_tensors, concat_task_datasets
 from tools.utils import FMRIDataset
 
+# The following are the directories to the fMRI datasets. 
 DATA_DIR = '/media/RCPNAS/Data2/Flavia/CS-433-ML4S/dataset/'
-
 TASK_FILES = {
     'motor': DATA_DIR + 'dataset_MOTOR_100_subjects_smoothing5mm_98thquantile_not_normalized_remove_mean_regressor_min_duration_10_rsquared.nc',
     'emotion': DATA_DIR + 'dataset_EMOTION_100_subjects_smoothing5mm_98thquantile_not_normalized_remove_mean_regressor_min_duration_10_rsquared.nc',
@@ -17,8 +17,12 @@ TASK_FILES = {
 
 def get_real_data_split(task, augmentation=True, augmentation_ratios=(0.3, 0.3, 0.3), for_test=False, final_length=None, seed=0):
     '''
-    task: 'motor', 'emotion', 'gambling', 'wm', 'language'
-    augmentation_ratios: (shift, amplitude, noise)
+    Wraps a real fMRI dataset into a FMRIDataset object with train/val/test split.
+
+    task: 'motor', 'emotion', 'gambling', 'wm', 'language'.
+    augmentation_ratios: tuble of floats, proportions of the dataset to apply the each individual augmentation to (shift, amplitude, noise).
+    for_test: bool, True if the whole dataset should be used for testing (no split would thus be applied).
+    final_length: int, the final length to pad the signals to.
     '''
     
     random.seed(seed)
@@ -47,6 +51,9 @@ def get_real_data_split(task, augmentation=True, augmentation_ratios=(0.3, 0.3, 
     return dataset
 
 def preprocessing(seed=0):
+    '''
+    The full preprocessing code.
+    '''
 
     random.seed(seed)
     ## Import all datasets as xarrays.

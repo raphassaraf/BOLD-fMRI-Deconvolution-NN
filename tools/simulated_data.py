@@ -9,6 +9,12 @@ from tqdm import tqdm
 
 
 def generate_timeseries(n_points, regime):
+    '''
+    Generate a single activity inducing signal.
+
+    n_points: int, signal_length.
+    regime: dict (keys: 'min_onset_interval', 'duration', 'amplitude'), describes the signal simulation parameters.
+    '''
     
     min_onset_interval = regime['min_onset_interval']
     duration_mean, duration_scale = regime['duration'][0], regime['duration'][1]
@@ -59,8 +65,6 @@ def get_hrf(method, tr=0.72):
 
 def convolve_multivariate_timeseries(dataset, method):
 
-    print('Convolving signals with random HRFs with oversampling = 1.')
-
     n_points = dataset.shape[1]
     tr = .72
 
@@ -92,12 +96,7 @@ def add_noise(dataset, snr):
 def generate_dataset(n_points, n_voxels, regime, method='random'):
     """
     Generate a multivariate time series with different regimes.
-
-    Parameters:
-
-
-    Returns:
-    - np.ndarray: A 2D array of shape (n_voxels, n_points).
+    Returns the activitiy inducing, convolved and BOLD signals.
     """
         
     simulated_signals = np.zeros((n_voxels, n_points))

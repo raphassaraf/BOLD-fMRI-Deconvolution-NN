@@ -5,6 +5,10 @@ import torch.nn.functional as F
 from tools.models.base_models import BaseModel
     
 class CNN_1l(BaseModel):
+    '''
+    1-layer CNN.
+    '''
+
     def __init__(self, kernel_size, input_size=1):
         super(CNN_1l, self).__init__()
         
@@ -26,6 +30,10 @@ class CNN_1l(BaseModel):
         return x
     
 class CNN_2l(BaseModel):
+    '''
+    2-layer CNN.
+    '''
+        
     def __init__(self, kernel_size_1, kernel_size_2, hidden_size, input_size=1):
         super(CNN_2l, self).__init__()
         
@@ -54,6 +62,10 @@ class CNN_2l(BaseModel):
         return x
     
 class CNN_3l(BaseModel):
+    '''
+    3-layer CNN.
+    '''
+
     def __init__(self, kernel_size_1, kernel_size_2, kernel_size_3, hidden_size_1, hidden_size_2, input_size=1):
         super(CNN_3l, self).__init__()
         
@@ -89,6 +101,10 @@ class CNN_3l(BaseModel):
         return x
 
 class CNN_4l(BaseModel):
+    '''
+    4-layer CNN.
+    '''
+
     def __init__(
         self, kernel_size_1, kernel_size_2, kernel_size_3, kernel_size_4, 
         hidden_size_1, hidden_size_2, hidden_size_3, input_size=1
@@ -135,6 +151,14 @@ class CNN_4l(BaseModel):
 
 class CNN_4l_Adapter(BaseModel):
     def __init__(self, cnn_4l_model, kernel_size):
+        '''
+        4-layer CNN with 1 adapter layer. This model is only used for finetuning. 
+        It takes as input a CNN_4l model, adds an adapter layer between layers 3 and 4, 
+        freezes the CNN_4l and only keeps the added layer as a trainable layer.
+
+        cnn_4l_model: CNN_4l, pretrained 4-layer CNN model to finetune.
+        kernel_size: int, the kernel size of the adapter layer (i.e. the layer inserted between layer 3 and 4 of the CNN_4l)
+        '''
         super(CNN_4l_Adapter, self).__init__()
         
         self.conv1 = cnn_4l_model.conv1 
@@ -194,6 +218,16 @@ class CNN_4l_Adapter(BaseModel):
 
 class CNN_4l_Adapter2(BaseModel):
     def __init__(self, cnn_4l_model, kernel_size_1, kernel_size_2):
+        '''
+        4-layer CNN with 2 adapter layers. This model is only used for finetuning. 
+        It takes as input a CNN_4l model, adds 2 adapter layers between layers 2-3 and 3-4, 
+        freezes the CNN_4l and only keeps the added layers as trainable layers.
+
+        cnn_4l_model: CNN_4l, pretrained 4-layer CNN model to finetune.
+        kernel_size_1: int, the kernel size of the 1st adapter layer (i.e. the layer inserted between layer 2 and 3 of the CNN_4l)
+        kernel_size_2: int, the kernel size of the 2nd adapter layer (i.e. the layer inserted between layer 3 and 4 of the CNN_4l)
+        '''
+
         super(CNN_4l_Adapter2, self).__init__()
         
         self.conv1 = cnn_4l_model.conv1 

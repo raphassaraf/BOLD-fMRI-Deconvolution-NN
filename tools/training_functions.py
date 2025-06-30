@@ -10,6 +10,21 @@ def train(
     scheduler, device, num_epochs, model_name=None, study_name=None,
     patience=5, tolerance=1e-4, test_loader=None
 ):
+    '''
+    Base training loop.
+
+    train_loader: DataLoader, training data.
+    val_loader: DataLoader, validation data.
+    criterion: loss function.
+    optimizer: torch.optim optimizer.
+    device: 'cuda' or 'cpu'.
+    num_epochs: int, max number of epochs.
+    model_name: model name to use for logging.
+    study_name: name of the Optuna study within which the model is trained.
+    patience: int, patience parameter for early stopping.
+    tolerance: int, tolerance for early stopping.
+    test_loader: DataLoader, testing data.
+    '''
     
     # train_loss and val_loss correspond to the loss calculated with the criterion at each epoch
     # mse_train, mse_val correspond to the MSE loss calculation at each epoch. Those values are 
@@ -88,6 +103,27 @@ def train_autoencoder(
     scheduler_ae, scheduler_ldm, device, num_epochs, model_name=None, study_name=None,
     patience=5, tolerance=1e-4, test_loader=None
     ):
+    '''
+    AutoEncoder training loop. Trains the Encoder+Decoder blocks and LatentDeconvolution block sequentially.
+
+    autoencoder: AutoEncoder object.
+    latent_deconv_model: LatentDeconvolution object.
+    train_loader: DataLoader, training data.
+    val_loader: DataLoader, validation data.
+    criterion_ae: loss function for the autoencoder.
+    criterion_ldm: loss function for the latent deconvolution model.
+    optimizer_ae: optimizer for the autoencoder.
+    optimizer_ldm: optimizer for the latent deconvolution model.
+    scheduler_ae: learning rate scheduler for the autoencoder.
+    scheduler_ldm: learning rate scheduler for the latent deconvolution model.
+    device: 'cuda' or 'cpu'.
+    num_epochs: int, max number of epochs.
+    model_name: model name to use for logging.
+    study_name: name of the Optuna study within which the model is trained.
+    patience: int, patience parameter for early stopping.
+    tolerance: int, tolerance for early stopping.
+    test_loader: DataLoader, testing data.
+    '''
 
     # Train AutoEncoder
     try:
@@ -184,7 +220,14 @@ def train_val_epoch(model, train_loader, val_loader, criterion, optimizer, devic
 
 
 def test_model(test_loader, model, metric_fn):
-    '''Differentiates between AutoEncoder and non-AutoEncoder models'''
+    '''
+    Test model. Differentiates between AutoEncoder and non-AutoEncoder models.
+
+    test_loader: DataLoader, testing data.
+    model: model to evaluate.
+    metric_fn: the evaluation metric.
+    '''
+    
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
     

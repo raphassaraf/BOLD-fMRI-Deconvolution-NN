@@ -4,6 +4,11 @@ import torch.nn.functional as F
 
 from tools.models.base_models import BaseModel
 
+'''
+Those architectures might be deprecated. 
+They were dropped from the studied models as they were underperforming compared to the CNNs and AEs.
+'''
+
 class LSTM_nl(BaseModel):
     def __init__(self, num_layers, hidden_size, input_size=1):
         super(LSTM_nl, self).__init__()
@@ -74,10 +79,23 @@ class OutputRNN(nn.Module):
         return x
     
 class RNNDeconvolutionRNN(nn.Module):
+    '''
+    Architecture from the ML4S students: input signal seeds a LSTM model that outputs a kernel (KernelRNN).
+    The input is convolved with that kernel and then passed in a second LSTM model (OutputRNN) that outputs the deconvolved signal.
+    '''
     def __init__(
         self, num_layers_kernel_rnn, hidden_size_kernel_rnn, num_layers_output_rnn, 
         hidden_size_output_rnn, kernel_size, input_size=1, dropout=0.2
     ):
+        """
+        num_layers_kernel_rnn: int, number of LSTM layers in the KernelRNN.
+        hidden_size_kernel_rnn: int, hidden size for the KernelRNN.
+        num_layers_output_rnn: int, number of LSTM layers in the OutputRNN.
+        hidden_size_output_rnn: int, hidden size for the OutputRNN.
+        kernel_size: int, kernel size for the KernelRNN's output.
+        input_size: int, number of channels in the input (should always be 1).
+        dropout: int, dropout to add in the both KernelRNN and OutputRNN.
+        """
         super(RNNDeconvolutionRNN, self).__init__()
         
         self.kernel_rnn = KernelRNN(num_layers_kernel_rnn, hidden_size_kernel_rnn, kernel_size, input_size, dropout)
