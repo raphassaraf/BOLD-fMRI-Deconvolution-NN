@@ -145,42 +145,16 @@ Training with as little as **30% real data** improved OOD performance while main
 
 ![mixed_data_performance](figures/mse_mixed.png)
 
-### CNN vs AE
+### Physically constrained model fails to outperform bigger models
 
-| Model | ID Performance | OOD Performance | Generalization |
-|-------|----------------|----------------|----------------|
-| CNN   | Good          | Best           | Strong        |
-| AE    | Best on ID    | Worse on OOD   | Overfits more |
-| CNN-small | Lower ID accuracy | Most stable | Most generalizable |
+Smaller physically constrained CNN generalized better than bigger models, but did not outperform them.
 
-Key insight:
-- CNNs rely on **local temporal dependencies**, aiding robustness.
-- AEs rely on **global latent structure**, increasing overfitting risk.
-
-📌 **Insert Figure:**  
-`Figure 8–11 – Qualitative inference comparisons`
-
-## Key Technical Contributions
-
-- Designed supervised deconvolution pipeline with GLM-based target estimation
-- Built synthetic fMRI generator with HRF variability
-- Implemented Gaussian-TV regularized loss
-- Performed Bayesian hyperparameter optimization
-- Systematic OOD evaluation
-- Investigated domain shift between simulated and real fMRI
-- Explored physically constrained architectures
-
-## Tech Stack
-
-- Python
-- PyTorch
-- Optuna
-- NumPy / SciPy
-- fMRI preprocessing pipelines (HCP data)
+**Performance of physically constrained CNN on mixed datasets**
+![mixed_small_cnn](figures/mse_mixed_cnn_small.png)
 
 ## Takeaways
 
-- Simulation pretraining improves real-data performance.
+- Pretraining on simulated dataset improves real-data performance.
 - Domain gap between synthetic and real fMRI is significant.
 - CNNs provide better OOD robustness than autoencoders.
 - Physically constrained models improve stability but reduce peak accuracy.
