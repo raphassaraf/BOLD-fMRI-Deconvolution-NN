@@ -67,6 +67,7 @@ To overcome lack of ground truth and improve generalization simulated samples we
 
 This allowed to control the HRF variability, train on a larger volume of data, and have explicit ground truth access.
 
+**Simulated sample (left), HRF variations (right)**
 ![simulated sample % HRFs](figures/sim_data.png)
 
 ## Methodology
@@ -103,7 +104,7 @@ Sequential training:
 1. Train encoder-decoder (reconstruction)
 2. Freeze and train LDM (deconvolution)
 
-📌 **Insert Figure:**  
+**Autoencoder with LDM Architecture**  
 ![AE_archtiecture](figures/AE_diagram.png)
 
 ## Training Strategy
@@ -122,9 +123,7 @@ Train on varying proportions of real vs simulated data:
 
 ### 3️⃣ Physically Constrained CNN
 
-- Field of view < 40 time points (HRF length)
-- Only 585 parameters
-- Enforces biologically realistic temporal receptive field
+Train a 3-layer CNN whose architecture admits an effective field of view < 40 time points (HRF length), enforces biologically realistic temporal receptive field.
 
 ## Results
 
