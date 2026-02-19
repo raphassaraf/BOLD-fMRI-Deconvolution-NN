@@ -24,8 +24,6 @@ The project studies:
 - Out-of-distribution (OOD) robustness
 - Physically constrained lightweight models
 
----
-
 ## Problem Formulation
 
 The BOLD signal can be modeled as:
@@ -45,8 +43,6 @@ This is an **inverse problem** that is:
 - Ill-posed
 - Sensitive to noise
 - Dependent on HRF assumptions
-
----
 
 ## Datasets
 
@@ -107,8 +103,6 @@ G. L. Zeng, *Better than the total variation regularization* International Journ
 
 Hyperparameter search performed using Optuna (Tree-Structured Parzen Estimator).
 
----
-
 ### 2️⃣ Autoencoder with Latent Deconvolution Module
 
 Architecture:
@@ -127,8 +121,6 @@ Sequential training:
 
 📌 **Insert Figure:**  
 `Figure 2 – Autoencoder architecture diagram`
-
----
 
 ## Training Strategy
 
@@ -151,8 +143,6 @@ Train on varying proportions of real vs simulated data:
 - Only 585 parameters
 - Enforces biologically realistic temporal receptive field
 
----
-
 ## Results
 
 ### Fine-Tuning Improves Real-Data Performance
@@ -166,16 +156,12 @@ Two-stage training significantly reduced MSE on real tasks:
 📌 **Insert Figure:**  
 `Figure 6 & 7 – Finetuning MSE comparison`
 
----
-
 ### Mixed Training Improves Generalization
 
 Training with as little as **30% real data** significantly improved OOD performance while maintaining simulated performance.
 
 📌 **Insert Figure:**  
 `Figure 3 – MSE vs real/simulated proportion`
-
----
 
 ### CNN vs AE
 
@@ -192,8 +178,6 @@ Key insight:
 📌 **Insert Figure:**  
 `Figure 8–11 – Qualitative inference comparisons`
 
----
-
 ## Key Technical Contributions
 
 - Designed supervised deconvolution pipeline with GLM-based target estimation
@@ -204,8 +188,6 @@ Key insight:
 - Investigated domain shift between simulated and real fMRI
 - Explored physically constrained architectures
 
----
-
 ## Tech Stack
 
 - Python
@@ -213,8 +195,6 @@ Key insight:
 - Optuna
 - NumPy / SciPy
 - fMRI preprocessing pipelines (HCP data)
-
----
 
 ## Takeaways
 
@@ -224,8 +204,6 @@ Key insight:
 - Physically constrained models improve stability but reduce peak accuracy.
 - Mixed-domain training is promising for improving generalization.
 
----
-
 ## Future Work
 
 - Improved HRF variability modeling
@@ -233,8 +211,6 @@ Key insight:
 - Physically informed architecture constraints
 - Extension to resting-state fMRI
 - Interpretability analysis of latent representations
-
----
 
 ## Repository Structure
 
