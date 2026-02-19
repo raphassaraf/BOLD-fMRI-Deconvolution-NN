@@ -129,21 +129,21 @@ Train a 3-layer CNN whose architecture admits an effective field of view < 40 ti
 
 ### Fine-Tuning Improves Real-Data Performance
 
-Two-stage training significantly reduced MSE on real tasks:
+Two-stage training (pretraining on simulated samples --> fine-tuning on real samples) reduced MSE on real tasks:
 
-- Strong improvement on ID tasks
-- CNN showed better OOD generalization
-- AE achieved lowest ID error but overfit more easily
+- Improvement on seen tasks (motor, language, gambling)
+- CNN showed better generalization to OOD tasks compared to version trained on only real samples
+- AE achieved lowest error on seen tasks but overfit more easily
 
-📌 **Insert Figure:**  
-`Figure 6 & 7 – Finetuning MSE comparison`
+![cnn_perfs](figures/cnn_ft.png)
+
+![ae_perfs](figures/ae_ft.png)
 
 ### Mixed Training Improves Generalization
 
-Training with as little as **30% real data** significantly improved OOD performance while maintaining simulated performance.
+Training with as little as **30% real data** improved OOD performance while maintaining simulated performance.
 
-📌 **Insert Figure:**  
-`Figure 3 – MSE vs real/simulated proportion`
+![mixed_data_performance](figures/mse_mixed.png)
 
 ### CNN vs AE
 
