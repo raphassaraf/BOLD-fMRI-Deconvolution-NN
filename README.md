@@ -28,16 +28,14 @@ The project studies:
 
 The BOLD signal can be modeled as:
 
-\[
-y(t) = (u * HRF)(t) + n(t)
-\]
+$y(t) = (u * \text{HRF})(t) + n(t)$
 
 Where:
-- \( u(t) \): underlying activity-inducing neural signal (piecewise constant)
-- \( HRF \): hemodynamic response function
-- \( n(t) \): noise
+- $u(t)$: underlying activity-inducing neural signal (piecewise constant)
+- HRF: hemodynamic response function
+- $n(t)$: noise
 
-The objective is to estimate \( u(t) \) from observed \( y(t) \).
+The objective is to estimate $u(t)$ from observed $y(t)$.
 
 This is an **inverse problem** that is:
 - Ill-posed
