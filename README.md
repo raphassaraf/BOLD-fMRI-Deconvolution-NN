@@ -19,9 +19,9 @@ Two architectures are investigated:
 The project studies:
 
 - Supervised training on real and simulated data
-- Two-stage training (simulation pretraining → real fine-tuning)
+- Two-stage training (pretraining on simulated (respectively real) data → fine-tuning on real (respectively simulated) data)
 - Mixed-domain training for generalization
-- Out-of-distribution (OOD) robustness
+- Model robustness to out-of-distribution (OOD) samples
 - Physically constrained lightweight models
 
 ## Problem Formulation
@@ -37,21 +37,11 @@ Where:
 
 The objective is to estimate $u(t)$ from observed $y(t)$.
 
-This is an **inverse problem** that is:
-- Ill-posed
-- Sensitive to noise
-- Dependent on HRF assumptions
-
 ## Datasets
 
 ### 1️⃣ Real Data – Human Connectome Project (HCP)
 
-Task-based fMRI data from 100 subjects:
-- Motor
-- Language
-- Gambling
-- Emotion (OOD)
-- Working Memory (OOD)
+Task-based fMRI data from 100 subjects: motor, language, gambling, emotion, working memory
 
 Several curation steps were performed by another lab member prior to the project. They include:
 - Preprocessing: Motion correction, slice timing correction, registration to MNI space, grey matter masking, smoothing
@@ -69,16 +59,13 @@ Final dataset:
 
 ### 2️⃣ Simulated Data
 
-To overcome lack of ground truth and improve generalization:
+To overcome lack of ground truth and improve generalization simulated samples were generated through:
 
-- Generated piecewise-constant neural signals
-- Convolved with variable SPM (Statistical Parametric Mapping) HRFs
-- Added Gaussian noise matching real SNR levels
+- Constructing piecewise-constant neural signals
+- Convolving them with variable SPM (Statistical Parametric Mapping) HRFs
+- Adding Gaussian noise, matching real samples' SNR levels
 
-This allowed:
-- Controlled HRF variability
-- Larger training volume
-- Explicit ground truth access
+This allowed to control the HRF variability, train on a larger volume of data, and have explicit ground truth access.
 
 ![simulated sample % HRFs](figures/sim_data.png)
 
@@ -87,10 +74,13 @@ This allowed:
 ### Loss Function
 
 To encourage piecewise-constant reconstructions, the loss used was the Mean Squared Error (MSE) with a Gaussian version of Total Variation (TV) regularization, penalizing smooth transitions while preserving sharp changes.
+
 The Gaussian TV formulation follows the approach described in:
 G. L. Zeng, *Better than the total variation regularization* International Journal of Biomedical Research & Practice, 2024
 
 ### Models
+
+Hyperparameter searches were performed using Optuna (Tree-Structured Parzen Estimator) on the following architectures:
 
 #### 1️⃣ Convolutional Neural Networks
 
@@ -98,8 +88,6 @@ G. L. Zeng, *Better than the total variation regularization* International Journ
 - Kernel size search: 5–90
 - Filters per layer: 1–10
 - Zero-padding to preserve signal length
-
-Hyperparameter search performed using Optuna (Tree-Structured Parzen Estimator).
 
 ### 2️⃣ Autoencoder with Latent Deconvolution Module
 
@@ -111,29 +99,26 @@ Architecture:
   - Fully connected expansion
   - 4-layer CNN
 
-~200k parameters.
-
 Sequential training:
 1. Train encoder-decoder (reconstruction)
 2. Freeze and train LDM (deconvolution)
 
 📌 **Insert Figure:**  
-`Figure 2 – Autoencoder architecture diagram`
+![AE_archtiecture](figures/AE_diagram.png)
 
 ## Training Strategy
 
 Three main training paradigms were evaluated:
 
-### 1️⃣ Simulated Pretraining → Real Fine-tuning
+### 1️⃣ Simulated/Real Pretraining → Real/Simulated Fine-tuning
 
-- Pretrain on synthetic data
-- Fine-tune using real BOLD samples
-- Multiple adaptation strategies (adapters, partial freezing)
+- Pretrain on simulated (respectively real) data
+- Fine-tune using real (respectively simulated) samples using multiple adaptation strategies (adapters, partial freezing)
 
 ### 2️⃣ Mixed-Domain Training
 
 Train on varying proportions of real vs simulated data:
-- 0%, 10%, 30%, 50%, 70%, 100% real
+- 0%, 10%, 30%, 50%, 70%, 100% real samples
 
 ### 3️⃣ Physically Constrained CNN
 
