@@ -194,3 +194,9 @@ Smaller physically constrained CNN generalized better than bigger models, but di
 * `mixed_data_training.py` - Script for training models on mixed datasets with varying proportions of real data.
 * `requirements.txt`
 
+## Project Context
+
+This project was conducted as a Master's semester research project with the Medical Image Processing Lab at the Swiss Federal Institute of Technology Lausanne (EPFL).
+
+Author: Raphael Assaraf (raphael.assaraf@epfl.ch)
+
