@@ -169,4 +169,28 @@ Smaller physically constrained CNN generalized better than bigger models, but di
 - Interpretability analysis of latent representations
 
 ## Repository Structure
+* `/configs/*` - Contains config files for the .py scripts.
+* `/data_generation/` - Contains scripts used to generate real and simulated datasets
+    - `mixed_data_generation.py` - Generate mixed (real + simulated) datasets of various proportions of real data.
+    - `real_data_generation.py` - Generate real dataset.
+    - `simulated_data_generation.py` - Generate simulated dataset.
+* `/notebooks/` - Contains notebooks used for analyis.
+    - `hp_search_results_analysis.ipynb`
+    - `midterm_pres_plots.ipynb`
+    - `report_plots.ipynb`
+* `/tools/`
+    - `./models/*` - Contains all neural network model classes.
+    - `analysis.py` - Contains all functions used for plots and results analysis.
+    - `custom_loss.py` - Loss functions.
+    - `objective.py` - Optuna objectives for hyperparameter searches.
+    - `preprocessing_functions.py` - Base preprocessing functions (including data augmentation functions).
+    - `preprocessing_script.py` - Wrapper functions to preprocess real datasets.
+    - `simulated_data.py` -  Functions to generate simulated datasets.
+    - `training_functions.py` - Contains the main training loops.
+    - `utils.py` - Utility functions.
+* `cnn_small.py` - Train & finetune CNN-small model.
+* `ft_ae.py` - Finetune AE model using different strategies.
+* `hp_search.py` - Hyperparameter search script.
+* `mixed_data_training.py` - Script for training models on mixed datasets with varying proportions of real data.
+* `requirements.txt`
 
